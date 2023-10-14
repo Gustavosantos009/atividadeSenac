@@ -23,6 +23,7 @@ public class ProdutosDAO {
     PreparedStatement st;
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    ArrayList<ProdutosDTO> listaVendidos = new ArrayList<>();
 
     public void cadastrarProduto(ProdutosDTO produto) {
         try {
@@ -53,7 +54,7 @@ public class ProdutosDAO {
                 produto.setStatus(rs.getString("status"));
 
                 listagem.add(produto);
-                
+
             }
         } catch (SQLException ex) {
             System.out.println("Erro em tentar listar ");
@@ -62,20 +63,46 @@ public class ProdutosDAO {
     }
 
     void venderProduto(int id) {
-        
+
         try {
             String sql = " update produtosdto set status = ? where id = ?";
-            st= conn.prepareStatement(sql);
-            st.setString(1,"vendido");
+            st = conn.prepareStatement(sql);
+            st.setString(1, "vendido");
             st.setInt(2, id);
             st.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null,"venda realizada com sucesso");
-            
+
+            JOptionPane.showMessageDialog(null, "venda realizada com sucesso");
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
+
+    }
+
+    public ArrayList<ProdutosDTO> listarVendidos() {
+
+        try {
+            String sql = " select*from produtosdto where status =?";
+            st = conn.prepareStatement(sql);
+            st.setString(1,"vendido");
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+
+                produto.setId(rs.getInt("id"));
+                produto.setValor(rs.getDouble("valor"));
+                produto.setNome(rs.getString("nome"));
+                produto.setStatus(rs.getString("status"));
+
+                listagem.add(produto);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro em tentar listar ");
+        }
+        return listagem;
     }
 
 }
