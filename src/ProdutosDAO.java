@@ -61,21 +61,4 @@ public class ProdutosDAO {
         return listagem;
     }
 
-    void venderProduto(int id) {
-        
-        try {
-            String sql = " update produtosdto set status = ? where id = ?";
-            st= conn.prepareStatement(sql);
-            st.setString(1,"vendido");
-            st.setInt(2, id);
-            st.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null,"venda realizada com sucesso");
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        
-    }
-
 }
