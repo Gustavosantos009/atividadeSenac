@@ -62,6 +62,7 @@ public class ProdutosDAO {
         return listagem;
     }
 
+<<<<<<< HEAD
     void venderProduto(int id) {
 
         try {
@@ -105,4 +106,6 @@ public class ProdutosDAO {
         return listagem;
     }
 
+=======
+>>>>>>> 5a4bf66848100429b69da6d340b8ea6002d0eb38
 }
